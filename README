@@ -1,9 +1,8 @@
 /**********************************************************
-* Proj1: CalcYouLater
-* Comp 15
+* CalcYouLater
+* 
 * Walter Wagude
-* 10/22/2021
-* README
+* 
 *
 *********************************************************/
 
@@ -51,15 +50,6 @@ Calculator. The RPNCalc Class is implemented using the DatumStack class
 hence it is essentially a stack than takes in commamnds from cin or a file 
 and stores datum objects. It then executes different operations on the datum 
 objects in accordance with the command inputted.
-
-Acknowledgements:
- 
-Reviewed hw1 code and code about opening a file (istream) to refresh my memory
-on working with files. Discussed my Design with July- Cs15 TA. Used resources
-from reference on the website to learn more about vector.
-Going to Office hours and constantly checking piazza for different questions 
-and answers helped me identify some edge cases.
-
 
 Files:
 
@@ -260,16 +250,3 @@ For phase2:
      
      Another file that I used to test is test_if_cmd.txt
      
-Part that you found most difficult:
-
-Implementing the if and file functions to deal with nested rstrings
-     
-Time spent:
-
-For phase1:
-
-6 hours
-
-For phase2:
-
-18 hours

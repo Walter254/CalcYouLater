@@ -1,0 +1,275 @@
+/**********************************************************
+* Proj1: CalcYouLater
+* Comp 15
+* Walter Wagude
+* 10/22/2021
+* README
+*
+*********************************************************/
+
+Compile/run:
+
+For phase1:
+     Inorder to test parser.cpp:
+     - Compile using
+            clang++ -Wall -Wextra -Werror testparser.cpp
+     - run executable with
+            ./a.out testfile
+            where testfile is the file with strings/data you want the 
+            parseRString function to read.
+            
+    Inorder to test Datumstack.cpp:
+    - Compile using
+            make
+    - run unit_test on the commandline
+    
+For phase2:
+
+   - compile using make
+   - run executable with
+    ./CalcYouLater
+
+
+Program Purpose:
+
+For phase1:
+
+I implemented parseRString function in parser.cpp
+and Datumstack class in DatumStack.cpp.
+
+The parseRString function takes a reference to an istream as a parameter
+and continues to read from it until it reaches the end of the input.
+
+The Datumstack class maintains a stack of Datum objects. It has member
+functions such pop that will be used by the RPNCalc class.
+
+For Phase2:
+
+Phase2 builds up on the program I wrote for phase1. Implementation of RPNCalc.
+cpp enables the program to fully run commands of a Reverse Polish Notation 
+Calculator. The RPNCalc Class is implemented using the DatumStack class 
+hence it is essentially a stack than takes in commamnds from cin or a file 
+and stores datum objects. It then executes different operations on the datum 
+objects in accordance with the command inputted.
+
+Acknowledgements:
+ 
+Reviewed hw1 code and code about opening a file (istream) to refresh my memory
+on working with files. Discussed my Design with July- Cs15 TA. Used resources
+from reference on the website to learn more about vector.
+Going to Office hours and constantly checking piazza for different questions 
+and answers helped me identify some edge cases.
+
+
+Files:
+
+For phase1: 
+
+DatumStack.cpp:
+     Implements the DatumStack class interface.
+     Uses vector to implement a DatumStack.
+     Implements functions such as pop and top.
+     
+DatumStack.h
+     Interface of DatumStack.
+
+parser.cpp:
+      Has the implementation of parseRString function.
+      
+testparser.cpp
+      A testing file for parseRString function. It has a main which makes it
+      easier to either directly or indirectly call a function to be tested, 
+      unlike parser.cpp file that does not have a main.
+      Main also enables us to print to command line.
+
+testparser.txt:
+     sample list of commands that you could give to the parseRString function
+
+unit_tests.h
+     Contains the testing functions for DatumStack class.
+     
+Makefile:
+     - For compilation purposes
+          
+
+Phase2:
+     
+main.cpp:
+     
+     Creates an instance of RPNCalc called Calculator then calls run
+     function. Run is a member function of RPNCalc that calls a command
+     loop which takes inputs and executes a Reverse Polish Notation
+     calculator. The calculator supports datum objects.
+    
+
+Datum+vector_example.cpp
+     
+     Code provided to show an example of how to implement a stack using a
+     vector
+     
+got_int.cpp
+     
+     A function that will tell you whether a string can be interpreted
+     as a integer number, and, if so, give the
+     value. 
+     
+RPNCalc.cpp
+     
+     Implementation of the RPNCalc interface. Implements RPNCalc member
+     functions such as run that calls the command_loop function. All of
+     functions work together to implement a Reverse Polish Notation
+     calculator-  postfix notation. The program requires input from either
+     cin or a file to execute.
+
+RPNCalc.h
+     
+     The interface of a Reverse Polish Notation Calculator(RPNCalc) -
+     Uses postfix notation, operator comes after its operands and not in 
+     between. The RPNCalc will support Datum Objects
+     
+test_if_cmd.txt
+     
+      A testing file for both the file and if command 
+      
+test_file_command.txt
+      
+     A testing file for the file command
+
+Data Structures:
+
+For phase1:
+
+I used a vector to implement a DatumStack. I chose to use a vector because
+most of the functions required to implement a Stack are already implemented
+in a vector. A Stack is a LIFO - Last In First Out data structure. So I
+implemented functions that are necessary to carry out the operations of a
+stack. A few worth mentioning are; a function to remove an element from the 
+stack - pop, a function to return the top element on the stack without deleting
+it - top, and two constructors that initializes an empty stack and a stack with
+Datums. Stacks are limited, so I did not include a function to access an 
+element within the stack.
+
+For phase2:
+
+I used my implementation of DatumStack to implement a RPNCalc object. RPNCalc
+oblect is a stack hence limited. The user can only remove and insert at the top
+of the data structure. The user cannot see the elements within the stack and 
+cannot remove element at the bottom of the stack. My program is also limited in
+that the if command does not work on nested rstrings. Hence the user should be 
+aware of this bug.
+Some advantages of this program (LIFO):
+    -helps you manage the data in a LIFO method which is not possible with 
+    linked list and array.
+    -when a function is called, the local variables are stored in a stack and 
+    automatically destroyed once returned.
+    -allows control of how memory is allocated and deallocated.
+    -variables cannot be resized.
+
+Testing:
+
+For phase1:
+     
+     Tests for DatumStack:
+     
+     I used unit_test.h to test DatumStack;
+     I tested all the functions in DatumStack in unit_test.h.
+     I ran into a problem when I tried to use assert to check if the datum at
+     the top of the stack was the expected one. I was not able to rectify the 
+     problem but came up with a different solution, printing to the commandline.
+     after initializing either an empty DatumStack or a DatumStack with
+     elements, I would for example test the pop function by calling it, then 
+     printing out the top element on the stack by calling the top function and
+     either getBool, getInt or getString and comparing the result with my 
+     expected value.
+     
+     Tests for parseRString:
+     
+     I created another file with a main function inorder to test the
+     parseRString function. testparser.cpp tests the parseRString function
+     by calling a read_data function that reads data from a given file then 
+     calls parseRString function if a string is "{". Because main takes 
+     arguments from the commandline, I also created a testparser.txt file that
+     has commands to be read by the parseRString and read_data functions.
+     read_data is a helper function for parseRString function. I thought of an 
+     edge case just for testing purposes- what if the function was getting
+     commands from cin on terminal, how does it get to the end of the file?
+     This would probably not be an issue in the overall purpose of the project
+     because the function will be reading from a file. Another edge case is 
+     what if the string is not balanced but I think the function is not 
+     supposed to deal with such a case. For now, it just reads the data from
+     the file and returns a string.
+     
+For phase2:
+
+     Some of the edge cases that I tested for in my program includes:
+     
+     performing operations on datum objects of differnt types:
+     -while coding and testing, I tried to perform operations such as addition
+     to a rstring and an integer datums to make sure my program behaved.
+     At first, my program did not deal with this cases and ended up throwing 
+     errors or aborting. I wrote code to make sure that operations such as
+     addition and subtraction required the top two elements on the stack to be
+     integers. If not - my programs outputs the appropriate error message on
+     cerr.
+     - I realized that the == operation could work on datums of boolean types,
+     so I adjusted my code - separated the == command from the other operations
+     to deal with it's unique case. But I still made sure that the top two 
+     elements were either both of boolean type, int type or string type.
+     
+     nested rstring:
+     This is the edge case that took me the most time to try and solve-
+     unfortunately I was not able to make my program deal with this case in the
+     time frame for the assigment. My program can add a nested rstring to the 
+     stack but whenever exec is called or if which ends up calling exec, 
+     my program fails to execute correctly. I used a lot of cerr prints to 
+     follow my code and the member function of Datum toString() to print out
+     to terminal and follow my code but did not rectify the bug. My educated
+     guess is that once I call exec and remove braces from the rstring,
+     my code crushes when it encounters another rstring and tries to read
+     from it. 
+     
+     removing braces from an rstring:
+     I found this to be another adge case. If I have a an rstring, let's say 
+     { 3 4 + }, the program should remove the braces to 3 4 + hence this can be
+     passed to the copmmand_loop and the commands executed. But if the rstring
+     is nested { 7 1 + { 5 1 + } }, which removal is correct?
+     is it 7 1 + 5 1 + or 7 1 + { 5 1 + }?
+     
+     exec
+     I used this command to test my implementation because I had a lot of 
+     errors whenever one of my functions called it. One of the bugs that i got 
+     was that my program did not pop an rstring once the exec command was 
+     called so my RPNCalc stack ended up having an rstring on the stack 
+     and its result from exec. The only way to know that the rstring was still
+     on the stack was to pop the result. It took me awhile to identify this
+     bug.
+     
+     commandline and diff testing:
+     
+     While coding, I checked my code alongside the reference program that 
+     was provided to us - theCalcYouLater.
+     This helped me know what the spec expected from my program. To make sure 
+     that my outputs to the commandline matched my the reference's 
+     outputs to the commandline, I used diff testing. I ran my program and 
+     stored its outputs in file1 then ran the reference program and stored its'
+     output in file two then - diff file1 and file2. I used the 
+     test_file_command.txt as the input.
+     
+     I also used cin on the command to test scenarios that I had written down
+     on paper and knew what to expect.
+     
+     Another file that I used to test is test_if_cmd.txt
+     
+Part that you found most difficult:
+
+Implementing the if and file functions to deal with nested rstrings
+     
+Time spent:
+
+For phase1:
+
+6 hours
+
+For phase2:
+
+18 hours
